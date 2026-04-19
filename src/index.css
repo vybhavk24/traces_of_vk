@@ -1,12 +1,58 @@
-* {
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+   Change these to retheme the entire site.
+───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
+
+:root {
+  /* Colors */
+  --color-bg: #07070f;
+  --color-text: #e8e4f0;
+  --color-muted: #9d96b0;
+  --color-accent: #c4b5e8;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', sans-serif;
+}
+
+/* ─────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Georgia', serif;
-  background: #0e0e11;
-  color: #eaeaea;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+
+  /* Subtle deep-space gradient behind stars */
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(60, 30, 100, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(20, 10, 60, 0.22) 0%, transparent 60%);
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  opacity: 0.3;
+  border-radius: 999px;
 }

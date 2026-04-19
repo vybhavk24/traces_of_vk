@@ -1,0 +1,109 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+}
+
+.hero__site-name {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  color: var(--color-accent);
+  opacity: 0.6;
+  margin-bottom: 1.5rem;
+}
+
+.hero__greeting {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.hero__subtext {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+  color: var(--color-muted);
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+.hero__scroll-prompt {
+  margin-top: 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+/* Animated scroll dots */
+.hero__scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0.75rem;
+}
+
+.hero__scroll-indicator span {
+  display: block;
+  width: 1px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 999px;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.hero__scroll-indicator span:nth-child(1) { animation-delay: 0s; }
+.hero__scroll-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.hero__scroll-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.6); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Tablet ── */
+@media (max-width: 768px) {
+  .hero__greeting {
+    font-size: clamp(2.8rem, 12vw, 5rem);
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.5rem;
+  }
+
+  .hero__greeting {
+    font-size: clamp(2.4rem, 14vw, 4rem);
+  }
+
+  .hero__subtext {
+    font-size: 0.95rem;
+  }
+}
