@@ -171,3 +171,56 @@
 .poem-page__back:focus {
   outline: none;
 }
+
+/* Series label */
+.poem-page__series {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+/* Sequence navigation */
+.poem-page__sequence-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  gap: 1rem;
+}
+
+.poem-page__seq-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+
+.poem-page__seq-btn:hover { opacity: 1; }
+.poem-page__seq-btn:focus { outline: none; }
+
+.poem-page__seq-btn--next { margin-left: auto; }
+
+.poem-page__seq-title {
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.poem-page__seq-arrow {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-accent);
+}

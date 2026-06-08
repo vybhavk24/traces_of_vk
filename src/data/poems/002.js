@@ -21,6 +21,9 @@ and still shows up every night.`,
   themes: ["cosmos", "existence", "philosophy"],
   origin: "lying on the terrace at 2am, looking up. felt both insignificant and completely free.",
   date: "2024-07",
+
+  galaxy: "cosmos",
+  sequence: null,
 };
 
 export default poem;

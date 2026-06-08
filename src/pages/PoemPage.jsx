@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import poems from "../data/poems/index";
 import StarCanvas from "../components/StarCanvas";
@@ -9,10 +9,20 @@ export default function PoemPage() {
   const navigate = useNavigate();
   const poem = poems.find((p) => p.id === id);
 
-  // Scroll to top when poem loads — doesn't affect navigate(-1) back
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
+  useEffect(() => { window.scrollTo(0, 0); }, [id]);
+
+  // Find prev/next if part of a sequence
+  const { prev, next } = useMemo(() => {
+    if (!poem?.sequence) return { prev: null, next: null };
+    const series = poems
+      .filter((p) => p.sequence?.name === poem.sequence.name)
+      .sort((a, b) => a.sequence.order - b.sequence.order);
+    const idx = series.findIndex((p) => p.id === poem.id);
+    return {
+      prev: idx > 0 ? series[idx - 1] : null,
+      next: idx < series.length - 1 ? series[idx + 1] : null,
+    };
+  }, [poem]);
 
   if (!poem) {
     return (
@@ -35,9 +45,12 @@ export default function PoemPage() {
           ← traces of vk
         </button>
 
+        {poem.sequence && (
+          <p className="poem-page__series">{poem.sequence.name} · {poem.sequence.order}</p>
+        )}
+
         <article className="poem-page__article">
           <h1 className="poem-page__title">{poem.title}</h1>
-
           <pre className="poem-page__body">{poem.body}</pre>
 
           <div className="poem-page__meta">
@@ -67,6 +80,30 @@ export default function PoemPage() {
             )}
           </div>
         </article>
+
+        {/* Sequence navigation */}
+        {(prev || next) && (
+          <nav className="poem-page__sequence-nav">
+            {prev ? (
+              <button
+                className="poem-page__seq-btn poem-page__seq-btn--prev"
+                onClick={() => navigate(`/poem/${prev.id}`)}
+              >
+                <span className="poem-page__seq-arrow">←</span>
+                <span className="poem-page__seq-title">{prev.title}</span>
+              </button>
+            ) : <span />}
+            {next && (
+              <button
+                className="poem-page__seq-btn poem-page__seq-btn--next"
+                onClick={() => navigate(`/poem/${next.id}`)}
+              >
+                <span className="poem-page__seq-title">{next.title}</span>
+                <span className="poem-page__seq-arrow">→</span>
+              </button>
+            )}
+          </nav>
+        )}
 
       </div>
     </div>

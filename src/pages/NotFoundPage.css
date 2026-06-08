@@ -44,3 +44,13 @@
 .notfound__back:hover {
   opacity: 1;
 }
+
+@media (max-width: 480px) {
+  .notfound__text {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+  }
+
+  .notfound__content {
+    padding: 1.5rem;
+  }
+}

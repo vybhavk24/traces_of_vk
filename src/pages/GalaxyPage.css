@@ -1,0 +1,224 @@
+.galaxy-page {
+  min-height: 100vh;
+  position: relative;
+}
+
+.galaxy-page__content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 2rem 8rem;
+  animation: fadeUp 0.9s ease forwards;
+  opacity: 0;
+}
+
+/* Back button */
+.galaxy-page__back {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--color-accent);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  display: inline-block;
+  margin-bottom: 4rem;
+}
+
+.galaxy-page__back:hover { opacity: 1; }
+.galaxy-page__back:focus { outline: none; }
+
+/* Header */
+.galaxy-page__header {
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.galaxy-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.galaxy-page__description {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 2vw, 1rem);
+  color: var(--color-muted);
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.galaxy-page__count {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+
+/* Poem list */
+.galaxy-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Individual poem row */
+.galaxy-poem-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 1.25rem 0;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  -webkit-appearance: none;
+  transition: background 0.2s ease;
+}
+
+.galaxy-poem-row:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.galaxy-poem-row:hover {
+  background: rgba(196, 181, 232, 0.03);
+}
+
+.galaxy-poem-row:focus { outline: none; }
+
+.galaxy-poem-row__dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.4;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.galaxy-poem-row:hover .galaxy-poem-row__dot { opacity: 1; }
+
+.galaxy-poem-row__title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.7;
+  flex: 1;
+  transition: opacity 0.3s ease;
+  line-height: 1.3;
+}
+
+.galaxy-poem-row:hover .galaxy-poem-row__title { opacity: 1; }
+
+.galaxy-poem-row__mood {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  opacity: 0.4;
+  text-transform: lowercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.galaxy-poem-row:hover .galaxy-poem-row__mood { opacity: 0.75; }
+
+/* ── Constellation / Sequence ── */
+.galaxy-sequence {
+  margin-bottom: 0.5rem;
+}
+
+.galaxy-sequence__name {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.45;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.galaxy-sequence__poems {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(196, 181, 232, 0.12);
+}
+
+.galaxy-poem-row--sequence {
+  padding: 1rem 0;
+}
+
+.galaxy-poem-row__order {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  opacity: 0.4;
+  flex-shrink: 0;
+  letter-spacing: 0.1em;
+  min-width: 16px;
+}
+
+/* Empty state */
+.galaxy-page--empty .galaxy-page__content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.galaxy-page__lost {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Tablet ── */
+@media (max-width: 768px) {
+  .galaxy-page__content { padding: 3rem 1.75rem 6rem; }
+  .galaxy-page__back { margin-bottom: 3rem; }
+  .galaxy-poem-row__mood { display: none; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .galaxy-page__content { padding: 2.5rem 1.25rem 5rem; }
+  .galaxy-page__back { margin-bottom: 2.5rem; }
+  .galaxy-page__title { font-size: clamp(2rem, 10vw, 3rem); }
+}

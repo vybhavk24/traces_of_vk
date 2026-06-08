@@ -3,15 +3,14 @@
   width: 100%;
 }
 
-/* Field height is dynamic — grows with poem count */
 .cosmic-poems__field {
   position: relative;
   width: 100%;
   height: var(--field-vh, 100vh);
 }
 
-/* Each poem star */
-.poem-star {
+/* ── Galaxy Cluster ── */
+.galaxy-cluster {
   position: absolute;
   transform: translate(-50%, -50%);
   background: none;
@@ -20,136 +19,159 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 1rem;
   -webkit-tap-highlight-color: transparent;
+  outline: none;
 
   opacity: 0;
-  animation: starAppear 1s ease forwards;
+  animation: clusterAppear 1s ease forwards;
 }
 
-/* Dot */
-.poem-star__dot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(196, 181, 232, 0.9);
-  box-shadow:
-    0 0 8px 3px rgba(196, 181, 232, 0.35),
-    0 0 20px 6px rgba(196, 181, 232, 0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-  animation: starPulse 3.5s ease-in-out infinite;
+/* Nebula — cluster of dots suggesting many stars */
+.galaxy-cluster__nebula {
+  position: relative;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
 }
 
-.poem-star--hovered .poem-star__dot {
-  transform: scale(2);
+.galaxy-cluster__dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: nebulaPulse 4s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.galaxy-cluster__dot--core {
+  width: 7px; height: 7px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.95;
   background: #fff;
+  box-shadow: 0 0 10px 3px rgba(196, 181, 232, 0.5);
+  animation-delay: 0s;
+}
+
+.galaxy-cluster__dot--1 {
+  width: 3px; height: 3px;
+  top: 20%; left: 25%;
+  opacity: 0.5;
+  animation-delay: 0.4s;
+}
+
+.galaxy-cluster__dot--2 {
+  width: 2px; height: 2px;
+  top: 65%; left: 70%;
+  opacity: 0.4;
+  animation-delay: 0.8s;
+}
+
+.galaxy-cluster__dot--3 {
+  width: 3px; height: 3px;
+  top: 30%; left: 72%;
+  opacity: 0.45;
+  animation-delay: 1.2s;
+}
+
+.galaxy-cluster--hovered .galaxy-cluster__dot--core {
+  transform: translate(-50%, -50%) scale(1.8);
   box-shadow:
-    0 0 16px 6px rgba(196, 181, 232, 0.6),
-    0 0 40px 14px rgba(196, 181, 232, 0.2);
+    0 0 20px 8px rgba(196, 181, 232, 0.5),
+    0 0 50px 16px rgba(196, 181, 232, 0.15);
+}
+
+.galaxy-cluster--hovered .galaxy-cluster__dot--1,
+.galaxy-cluster--hovered .galaxy-cluster__dot--2,
+.galaxy-cluster--hovered .galaxy-cluster__dot--3 {
+  transform: scale(1.6);
+  opacity: 0.8;
 }
 
 /* Label */
-.poem-star__label {
+.galaxy-cluster__label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
-  text-align: center;
-  max-width: 200px;
+  gap: 0.25rem;
   pointer-events: none;
+  text-align: center;
+  max-width: 180px;
 }
 
-.poem-star__title {
+.galaxy-cluster__name {
   font-family: var(--font-display);
-  font-size: clamp(0.82rem, 1.5vw, 1rem);
-  font-weight: 400;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   font-style: italic;
+  font-weight: 400;
   color: var(--color-text);
+  letter-spacing: 0.03em;
+  opacity: 0.6;
+  transition: opacity 0.35s ease;
   white-space: nowrap;
-  letter-spacing: 0.02em;
-  line-height: 1.3;
+}
+
+.galaxy-cluster--hovered .galaxy-cluster__name {
+  opacity: 1;
+}
+
+.galaxy-cluster__count {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
   opacity: 0.45;
   transition: opacity 0.35s ease;
 }
 
-.poem-star--hovered .poem-star__title {
-  opacity: 1;
+.galaxy-cluster--hovered .galaxy-cluster__count {
+  opacity: 0.8;
 }
 
-.poem-star__mood {
+.galaxy-cluster__description {
   font-family: var(--font-body);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: lowercase;
-  color: var(--color-accent);
+  font-size: 0.68rem;
+  color: var(--color-muted);
+  font-style: italic;
   opacity: 0;
-  transform: translateY(3px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  white-space: nowrap;
+  transform: translateY(4px);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+  max-width: 160px;
+  text-align: center;
+  line-height: 1.5;
+  white-space: normal;
 }
 
-.poem-star--hovered .poem-star__mood {
-  opacity: 0.75;
+.galaxy-cluster--hovered .galaxy-cluster__description {
+  opacity: 0.65;
   transform: translateY(0);
 }
 
 /* Animations */
-@keyframes starAppear {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+@keyframes clusterAppear {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-@keyframes starPulse {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.15); }
+@keyframes nebulaPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
 }
 
-/* ── Tablet (portrait) ── */
+/* ── Tablet ── */
 @media (max-width: 768px) {
-  .poem-star__title {
-    font-size: 0.88rem;
-    white-space: normal;
-    opacity: 0.55;
-  }
-
-  .poem-star__label {
-    max-width: 140px;
-  }
-
-  .poem-star__dot {
-    width: 9px;
-    height: 9px;
-  }
+  .galaxy-cluster__name { font-size: 0.95rem; opacity: 0.75; }
+  .galaxy-cluster__count { opacity: 0.6; }
+  .galaxy-cluster__nebula { width: 36px; height: 36px; }
 }
 
 /* ── Mobile ── */
 @media (max-width: 480px) {
-  .poem-star {
-    padding: 0.75rem;
-    gap: 0.5rem;
-  }
-
-  .poem-star__title {
-    font-size: 0.82rem;
-    white-space: normal;
-    opacity: 0.6;
-  }
-
-  .poem-star__label {
-    max-width: 110px;
-  }
-
-  .poem-star__dot {
-    width: 10px;
-    height: 10px;
-  }
-
-  /* On mobile, mood always slightly visible since no hover */
-  .poem-star__mood {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
+  .galaxy-cluster { gap: 0.6rem; padding: 0.75rem; }
+  .galaxy-cluster__name { font-size: 0.88rem; opacity: 0.8; white-space: normal; }
+  .galaxy-cluster__label { max-width: 120px; }
+  .galaxy-cluster__nebula { width: 30px; height: 30px; }
+  .galaxy-cluster__description { display: none; }
 }

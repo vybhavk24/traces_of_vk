@@ -34,7 +34,7 @@ const questions = [
   },
   {
     id: 4,
-    question: "Should I read it?",
+    question: "Should you read it?",
     answer:
       "I have no idea. The poems are neither good nor bad. They resonate based on your emotional state and mine when I penned them down. So if you can relate, it's great — else it's a waste of time.",
   },
@@ -48,9 +48,9 @@ const questions = [
     id: 6,
     question: "Why do I write?",
     answer:
-      "I have this voice inside my head that keeps narrating everything in the form of poetry. And for it to stop, I need to throw it somewhere — and they result in these writings. So I write to make the voice stop.",
+      "I have this voice inside my head that keeps narrating everything in the form of poetry. And for it to stop, I need to throw it somewhere — and they result in these writings. So I write to make the voice stop...",
     // This line stands alone as a moment before the poems begin
-    closing: "But it never does..",
+    closing: " but it never does!",
   },
 ];
 

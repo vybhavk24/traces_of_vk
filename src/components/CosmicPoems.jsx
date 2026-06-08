@@ -1,58 +1,57 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import galaxies from "../data/galaxies";
 import poems from "../data/poems/index";
 import "./CosmicPoems.css";
 
-// Minimum vh per poem — ensures stars never crowd
-const MIN_VH_PER_POEM = 18;
-const MIN_FIELD_VH = 100;
-
-function getStarPosition(id, index, total) {
-  const seed = parseInt(id, 10) || index + 1;
+// Deterministic position using golden angle spiral
+function getGalaxyPosition(index, total) {
   const goldenAngle = 137.508;
-  const angle = (seed * goldenAngle * Math.PI) / 180;
-
-  // Radius grows with more poems so they spread out
-  const minRadius = 20;
-  const maxRadius = 44;
-  const radius = minRadius + ((index / Math.max(total - 1, 1)) * (maxRadius - minRadius));
-
+  const angle = (index * goldenAngle * Math.PI) / 180;
+  const radius = 22 + (index / Math.max(total - 1, 1)) * 30;
   const cx = 50 + radius * Math.cos(angle);
   const cy = 50 + radius * Math.sin(angle);
-
   return {
     left: `${Math.min(Math.max(cx, 10), 88)}%`,
-    top: `${Math.min(Math.max(cy, 8), 90)}%`,
+    top: `${Math.min(Math.max(cy, 10), 88)}%`,
   };
 }
 
-function PoemStar({ poem, position, index }) {
+function GalaxyCluster({ galaxy, poemCount, position, index }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
 
+  if (poemCount === 0) return null;
+
   return (
     <button
-      className={`poem-star ${hovered ? "poem-star--hovered" : ""}`}
-      style={{
-        ...position,
-        animationDelay: `${index * 0.12}s`,
-      }}
-      onClick={() => navigate(`/poem/${poem.id}`)}
+      className={`galaxy-cluster ${hovered ? "galaxy-cluster--hovered" : ""}`}
+      style={{ ...position, animationDelay: `${index * 0.15}s` }}
+      onClick={() => navigate(`/galaxy/${galaxy.id}`)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      // Touch support
       onTouchStart={() => setHovered(true)}
       onTouchEnd={() => {
-        setTimeout(() => setHovered(false), 600);
-        navigate(`/poem/${poem.id}`);
+        setTimeout(() => setHovered(false), 400);
+        navigate(`/galaxy/${galaxy.id}`);
       }}
-      aria-label={`Read poem: ${poem.title}`}
+      aria-label={`Enter ${galaxy.label} — ${poemCount} poem${poemCount !== 1 ? "s" : ""}`}
     >
-      <span className="poem-star__dot" aria-hidden="true" />
-      <span className="poem-star__label">
-        <span className="poem-star__title">{poem.title}</span>
-        {poem.mood && (
-          <span className="poem-star__mood">{poem.mood}</span>
+      {/* Cluster of mini dots suggesting many stars */}
+      <span className="galaxy-cluster__nebula" aria-hidden="true">
+        <span className="galaxy-cluster__dot galaxy-cluster__dot--1" />
+        <span className="galaxy-cluster__dot galaxy-cluster__dot--2" />
+        <span className="galaxy-cluster__dot galaxy-cluster__dot--3" />
+        <span className="galaxy-cluster__dot galaxy-cluster__dot--core" />
+      </span>
+
+      <span className="galaxy-cluster__label">
+        <span className="galaxy-cluster__name">{galaxy.label}</span>
+        <span className="galaxy-cluster__count">
+          {poemCount} poem{poemCount !== 1 ? "s" : ""}
+        </span>
+        {hovered && (
+          <span className="galaxy-cluster__description">{galaxy.description}</span>
         )}
       </span>
     </button>
@@ -60,34 +59,30 @@ function PoemStar({ poem, position, index }) {
 }
 
 export default function CosmicPoems() {
-  const total = poems.length;
+  const poemsByGalaxy = useMemo(() => {
+    const map = {};
+    poems.forEach((p) => {
+      if (!map[p.galaxy]) map[p.galaxy] = 0;
+      map[p.galaxy]++;
+    });
+    return map;
+  }, []);
 
-  // Field height grows with poem count — min 100vh, adds 18vh per poem beyond 6
-  const fieldVh = Math.max(
-    MIN_FIELD_VH,
-    total > 6 ? MIN_FIELD_VH + (total - 6) * MIN_VH_PER_POEM : MIN_FIELD_VH
-  );
-
-  const stars = useMemo(() =>
-    poems.map((poem, i) => ({
-      poem,
-      position: getStarPosition(poem.id, i, total),
-    })),
-    [total]
-  );
+  const visibleGalaxies = galaxies.filter((g) => poemsByGalaxy[g.id] > 0);
+  const total = visibleGalaxies.length;
 
   return (
-    <section
-      className="cosmic-poems"
-      aria-label="Poems"
-      style={{ "--field-vh": `${fieldVh}vh` }}
-    >
-      <div className="cosmic-poems__field">
-        {stars.map(({ poem, position }, i) => (
-          <PoemStar
-            key={poem.id}
-            poem={poem}
-            position={position}
+    <section className="cosmic-poems" aria-label="Poetry galaxies">
+      <div
+        className="cosmic-poems__field"
+        style={{ "--field-vh": `${Math.max(100, total * 16)}vh` }}
+      >
+        {visibleGalaxies.map((galaxy, i) => (
+          <GalaxyCluster
+            key={galaxy.id}
+            galaxy={galaxy}
+            poemCount={poemsByGalaxy[galaxy.id] || 0}
+            position={getGalaxyPosition(i, total)}
             index={i}
           />
         ))}

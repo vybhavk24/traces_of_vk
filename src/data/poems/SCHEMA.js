@@ -22,13 +22,21 @@ TEMPLATE — copy this, fill it in, save as its own file inside src/data/poems/
   themes: [""],            // free text array — what it's about, can be multiple
                            // e.g. ["love", "distance"] or ["cosmos", "existence"]
                            // ⚠ be consistent with casing — use lowercase always
-                           // so filtering works correctly later
 
   origin: "",              // free text — how/when/why this was born, in your voice
-                           // e.g. "saw a girl reading alone at a café, couldn't stop thinking about it"
 
-  date: "YYYY-MM",         // month + year is enough
-                           // e.g. "2024-03"
+  date: "YYYY-MM",         // month + year — e.g. "2024-03"
+
+  galaxy: "",              // which galaxy (category) this poem belongs to
+                           // must match an "id" in src/data/galaxies.js exactly
+                           // e.g. "she", "cosmos", "philosophy", "random"
+
+  sequence: null,          // leave as null for standalone poems
+                           // for trilogies/series, use:
+                           // sequence: {
+                           //   name: "my first trilogy",  // series name
+                           //   order: 1,                  // position: 1, 2, 3...
+                           // }
 }
 
 */
@@ -36,11 +44,13 @@ TEMPLATE — copy this, fill it in, save as its own file inside src/data/poems/
 // ─────────────────────────────────────────────
 //  FIELD REFERENCE
 //
-//  id        → string, unique identifier, never change after creation
+//  id        → string, unique, never change after creation
 //  title     → string
 //  body      → string (template literal), preserves line breaks
 //  mood      → string, free text, your words
 //  themes    → array of strings, lowercase, consistent spelling
 //  origin    → string, free text, casual voice
 //  date      → string, format "YYYY-MM"
+//  galaxy    → string, must match a galaxy id in galaxies.js
+//  sequence  → null OR { name: string, order: number }
 // ─────────────────────────────────────────────

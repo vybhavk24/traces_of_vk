@@ -60,7 +60,7 @@ export default function QASection() {
         <span className="qa-section__threshold-line" />
         <div className="qa-section__threshold-center">
           <p className="qa-section__threshold-text">and now, the poems</p>
-          <p className="qa-section__threshold-hint">each light is a poem — click to enter</p>
+          <p className="qa-section__threshold-hint">each light is a cluster — click to enter</p>
         </div>
         <span className="qa-section__threshold-line" />
       </div>

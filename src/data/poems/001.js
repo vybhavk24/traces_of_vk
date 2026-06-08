@@ -14,9 +14,12 @@ some people are bookmarks
 in stories that were never theirs.`,
 
   mood: "quietly melancholic",
-  themes: ["persons", "observation", "love"],
+  themes: ["love", "observation"],
   origin: "saw a girl at a café reading in the window seat while it rained outside. she looked like she belonged to that moment more than to anyone.",
   date: "2024-03",
+
+  galaxy: "she",
+  sequence: null,
 };
 
 export default poem;

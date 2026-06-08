@@ -5,11 +5,10 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__inner">
+
         <div className="footer__lines">
           {footerData.lines.map((line, i) => (
-            <p key={i} className="footer__line">
-              {line}
-            </p>
+            <p key={i} className="footer__line">{line}</p>
           ))}
         </div>
 
@@ -27,7 +26,13 @@ export default function Footer() {
           ))}
         </div>
 
+        <div className="footer__meta">
+          <p className="footer__updated">last updated — {footerData.lastUpdated}</p>
+          <p className="footer__credit">{footerData.credit}</p>
+        </div>
+
         <p className="footer__closing">{footerData.closing}</p>
+
       </div>
     </footer>
   );
