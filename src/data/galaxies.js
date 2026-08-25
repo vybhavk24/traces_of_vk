@@ -48,6 +48,18 @@ const galaxies = [
     description: "the voice spoke and this is what came out",
   },
   // Add more galaxies here as needed
+
+  {
+    id: "a-trilogy",
+    label: "a-trilogy",
+    description: "I tried three pieces that are connected",
+  },
+
+    {
+    id: "kannada",
+    label: "ಕನ್ನಡ ಪದ್ಯಗಳು",
+    description: "Bariyod kasta, but try madak yenu :p",
+  },
 ];
 
 export default galaxies;

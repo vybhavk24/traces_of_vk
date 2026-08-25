@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import questions from "../data/questions";
 import "./QASection.css";
 
-function QACard({ question, answer }) {
+function QACard({ question, answer, poem }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.35 }
+      { threshold: 0.2 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -19,6 +19,9 @@ function QACard({ question, answer }) {
     <div ref={ref} className={`qa-card ${visible ? "qa-card--visible" : ""}`}>
       <p className="qa-card__question">{question}</p>
       <p className="qa-card__answer">{answer}</p>
+      {poem && (
+        <pre className="qa-card__poem">{poem}</pre>
+      )}
     </div>
   );
 }
@@ -43,7 +46,6 @@ function ClosingLine({ text }) {
   );
 }
 
-// Pull out last question's closing line if it exists
 const lastQuestion = questions[questions.length - 1];
 const closingLine = lastQuestion?.closing || null;
 
@@ -51,7 +53,12 @@ export default function QASection() {
   return (
     <section className="qa-section">
       {questions.map((item) => (
-        <QACard key={item.id} question={item.question} answer={item.answer} />
+        <QACard
+          key={item.id}
+          question={item.question}
+          answer={item.answer}
+          poem={item.poem || null}
+        />
       ))}
 
       {closingLine && <ClosingLine text={closingLine} />}

@@ -20,10 +20,24 @@
 
 import poem001 from "./001";
 import poem002 from "./002";
+import poem003 from "./003";
+import poem004 from "./004";
+import poem005 from "./005";
+import poem006 from "./006";
+import poem007 from "./007";
+import poem008 from "./008";
+import poem009 from "./009";
 
 const poems = [
   poem001,
   poem002,
+  poem003,
+  poem004,
+  poem005,
+  poem006,
+  poem007,
+  poem008,
+  poem009,
 ];
 
 export default poems;
