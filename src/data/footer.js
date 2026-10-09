@@ -17,7 +17,7 @@ const footerData = {
     {
       label: "instagram",
       href: "https://www.instagram.com/vybhavk_gowda?igsh=bTU1OWhtYzc2YzVn", // ← replace
-      display: "vybhavk_gowda",                   // ← replace
+      display: "whybhav_gowda",                   // ← replace
     },
     {
       label: "email",
